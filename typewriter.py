@@ -7,7 +7,7 @@ from datetime import datetime
 import time
 
 def yyyy_mm_dd_hh_mm_ss():
-    return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.now().strftime('%Y-%m-%d--%H-%M-%S')
 
 def writefile(path, content):
     with open(path, 'w', encoding='utf-8') as f:
@@ -78,6 +78,12 @@ class TypewriterWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.time_remaining = 5 * 60  # 5 minutes in seconds
+        try:
+            import sys
+            self.time_remaining = int(sys.argv[1]) * 60
+        except:
+            pass
+        input(f"Press Enter to start with {self.time_remaining//60} minutes")
         self.initUI()
 
     def initUI(self):
